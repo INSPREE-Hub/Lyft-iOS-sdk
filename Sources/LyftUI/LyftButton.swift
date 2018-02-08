@@ -44,7 +44,7 @@ public class LyftButton: UIView {
     @IBOutlet private var price: UILabel?
 
     private var buttonStateView: UIView?
-    private var pressUpAction: ((Void) -> Void)?
+    private var pressUpAction: (() -> Void)?
 
     private var status: LyftButtonStatus = .noData {
         didSet { self.setupNib() }
@@ -94,7 +94,7 @@ public class LyftButton: UIView {
     public func configure(rideKind: RideKind = .Standard, pickup: CLLocationCoordinate2D? = nil,
                           destination: CLLocationCoordinate2D? = nil)
     {
-        self.pressUpAction = { [weak self] in
+        self.pressUpAction = { [weak self] () -> Void in
             if let behavior = self?.deepLinkBehavior {
                 LyftDeepLink.requestRide(using: behavior, kind: rideKind, from: pickup, to: destination)
             }
